@@ -10,19 +10,35 @@ public class App {
 
     get("/", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
-      model.put("jobOpenings", request.session().attribute("jobopenings"));
+      model.put("jobOpenings", JobOpening.all());
       model.put("template", "templates/index.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("job-openings/new", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      model.put("template", "templates/job-opening-form.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("/job-openings", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      model.put("jobOpenings", JobOpening.all());
+      model.put("template", "templates/job-openings.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("/job-openings/:id", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      JobOpening jobOpening = JobOpening.find(Integer.parseInt(request.params(":id")));
+      model.put("jobopening", jobOpening);
+      model.put("template", "templates/job-opening.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
     post("/job-openings", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
 
-      ArrayList<JobOpening> jobOpenings = request.session().attribute("jobopenings");
-      if (jobOpenings == null) {
-        jobOpenings = new ArrayList<JobOpening>();
-        request.session().attribute("jobopenings", jobOpenings);
-      }
 
       String title = request.queryParams("title");
       String description = request.queryParams("description");
@@ -30,9 +46,7 @@ public class App {
       String email = request.queryParams("email");
 
       JobOpening newJobOpening = new JobOpening(title, description, name, email);
-      jobOpenings.add(newJobOpening);
-      request.session().attribute("jobopening", newJobOpening);
-      model.put("jobopening",request.session().attribute("jobopening"));
+      model.put("newJobOpening", newJobOpening);
       model.put("template", "templates/success.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());

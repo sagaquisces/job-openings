@@ -1,35 +1,6 @@
 <!--index.vtl-->
-<h1>Job Openings</h1>
+<h1>Welcome to the Jobs Porthole!</h1>
 
-#if ($jobOpenings)
-  <ul>
-    #foreach ($jobopening in $jobOpenings)
-      <li>$jobopening.getTitle() submitted at: $jobopening.getCreatedAt()</li>
-    #end
-  </ul>
-#else
-  <p>No Job Openings!</p>
-#end
-
-<p>Add a new Job Opening:</p>
-
-<form action="/job-openings" method="post">
-  <div class="form-group">
-    <label for="title">Job Opening Title:</label>
-    <input id="title" name="title" class="form-control" type="text">
-  </div>
-  <div class="form-group">
-    <label for="description">Job Opening Description:</label>
-    <input id="description" name="description" class="form-control" type="text">
-  </div>
-  <div class="form-group">
-    <label for="name">Your Name:</label>
-    <input id="name" name="name" class="form-control" type="text">
-  </div>
-  <div class="form-group">
-    <label for="email">Your Email:</label>
-    <input id="email" name="email" class="form-control" type="text">
-  </div>
-  <button type="submit" class="btn btn-default">Add job opening</button>
-</form>
+<a href="/job-openings/new">Add a new job opening.</a>
+<a href="/job-openings">View all current job openings.</a>
 <!--index.vtl-->

@@ -1,3 +1,4 @@
+import java.util.*;
 import java.time.LocalDateTime;
 
 public class JobOpening {
@@ -8,6 +9,8 @@ public class JobOpening {
   private String mEmail;
   private boolean mFilled;
   private LocalDateTime mCreatedAt;
+  private static List<JobOpening> instances = new ArrayList<JobOpening>();
+  private int mId;
 
   public JobOpening(String title, String description, String name, String email) {
     mTitle = title;
@@ -16,6 +19,8 @@ public class JobOpening {
     mEmail = email;
     mFilled = false;
     mCreatedAt = LocalDateTime.now();
+    instances.add(this);
+    mId = instances.size();
   }
 
   public String getTitle() {
@@ -40,5 +45,21 @@ public class JobOpening {
 
   public LocalDateTime getCreatedAt() {
     return mCreatedAt;
+  }
+
+  public static List<JobOpening> all() {
+    return instances;
+  }
+
+  public static void clear() {
+    instances.clear();
+  }
+
+  public int getId() {
+    return mId;
+  }
+
+  public static JobOpening find(int id) {
+    return instances.get(id-1);
   }
 }
