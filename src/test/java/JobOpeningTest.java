@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -31,5 +32,18 @@ public class JobOpeningTest {
   public void JobOpening_instantiatesWithEmail_String() {
     JobOpening myJobOpening = new JobOpening("Junior Accountant","Handles the money","Jay Walker","jay@jay.com");
     assertEquals("jay@jay.com", myJobOpening.getEmail());
+  }
+
+  @Test
+  public void isFilled_isFalseAfterInstantiation_false() {
+    JobOpening myJobOpening = new JobOpening("Junior Accountant","Handles the money","Jay Walker","jay@jay.com");
+    assertEquals(false, myJobOpening.isFilled());
+  }
+
+  @Test
+  public void getCreatedAt_instantiatesWithCurrentTime_today() {
+    JobOpening myJobOpening = new JobOpening("Junior Accountant","Handles the money","Jay Walker","jay@jay.com");
+    assertEquals(LocalDateTime.now().getDayOfWeek(),
+    myJobOpening.getCreatedAt().getDayOfWeek());
   }
 }

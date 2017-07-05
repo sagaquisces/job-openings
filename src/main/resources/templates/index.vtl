@@ -4,7 +4,7 @@
 #if ($jobOpenings)
   <ul>
     #foreach ($jobopening in $jobOpenings)
-      <li>$jobopening.getTitle()</li>
+      <li>$jobopening.getTitle() submitted at: $jobopening.getCreatedAt()</li>
     #end
   </ul>
 #else
