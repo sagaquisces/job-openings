@@ -1,6 +1,13 @@
 <!--index.vtl-->
 <h1>Job Openings</h1>
 
+#if ($jobopening)
+  <p>Current job opening:</p>
+  <p>$jobopening.getTitle()</p>
+#else
+  <p>No Job Openings!</p>
+#end
+
 <p>Add a new Job Opening:</p>
 
 <form action="/job-openings" method="post">
