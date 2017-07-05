@@ -1,9 +1,12 @@
 <!--index.vtl-->
 <h1>Job Openings</h1>
 
-#if ($jobopening)
-  <p>Current job opening:</p>
-  <p>$jobopening.getTitle()</p>
+#if ($jobOpenings)
+  <ul>
+    #foreach ($jobopening in $jobOpenings)
+      <li>$jobopening.getTitle()</li>
+    #end
+  </ul>
 #else
   <p>No Job Openings!</p>
 #end
